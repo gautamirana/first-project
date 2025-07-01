@@ -1,0 +1,139 @@
+/* src/styles/headerstyle.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #C792A0;
+  padding: 5px;
+}
+
+.mobileNumber {
+  margin-left: 18px;
+  font-weight: bold;
+  color: #000;
+  font-size: 16px;
+  padding: 3px;
+}
+
+.leftSection {
+  display: flex;
+  gap: 4px;
+  margin-left: 10px;
+}
+
+.rightSection {
+  display: flex;
+  gap: 10px;
+}
+
+.iconLink {
+  display: inline-block;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+.link {
+  color: #000000;
+  padding: 6px;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+.tab {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  /* background: rgba(255, 255, 255, 0.7); */
+  background: 'none';
+  border: 'none';
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.navContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  /* justify-content: flex-end; Align to right */
+  gap: 24px;
+  padding: 16px 0;
+  /* padding: 16px 32px 16px 0; Add right padding */
+  background: none;
+  /* or uncomment if you want background overlay */
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: left 0.01s linear;
+  z-index: 1;
+}
+
+.serviceSection {
+  height: 600px;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  /* Add this line */
+  align-items: center;
+  /* Center items horizontally */
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  padding: 20px;
+  text-align: center;
+  justify-content: flex-start;
+  /* Optional: aligns content to the top */
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.imagesContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.imageCard {
+  flex: 1 1 calc(25% - 20px);
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.serviceImage {
+  width: 308px;
+  height: 345px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.description {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Additional styles if needed */
