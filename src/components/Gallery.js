@@ -1,46 +1,48 @@
-// src/components/Gallery.js
-import React from 'react';
-import sunset from '../assets/images/sunset.jpg';
-const photos = [
-  { id: 1, src: sunset, title: 'Sunset' },
-  { id: 2, src: 'https://images.unsplash.com/photo-151645太380になる?auto=format&fit=crop&w=800&q=80', title: 'Mountains' },
-  { id: 3, src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80', title: 'Beach' },
-  // Add more photo objects as needed
+import React , { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../styles/Gallery.css';
+
+const galleryImages = [
+  { id: 1, src: require('../assets/images/Service_img1.jpeg'), title: 'Bridal Mehndi' },
+  { id: 2, src: require('../assets/images/Service_img1.jpeg'), title: 'Party Mehndi' },
+  { id: 3, src: require('../assets/images/Service_img1.jpeg'), title: 'Kids Mehndi' },
+  { id: 4, src: require('../assets/images/Service_img1.jpeg'), title: 'Traditional Art' },
 ];
 
 function Gallery() {
+  const navigate = useNavigate();
+
+   // Redirect to home if loaded directly (on reload)
+  useEffect(() => {
+    if (window.location.pathname === '/gallery') {
+      if (performance.getEntriesByType('navigation')[0]?.type === 'reload') {
+        navigate('/', { replace: true });
+      }
+    }
+  }, [navigate]);
+
+  const handleImageClick = (id) => {
+    navigate(`/gallery/${id}`);
+  };
+
   return (
-    <div style={styles.gallery}>
-      {photos.map(photo => (
-        <div key={photo.id} style={styles.photoContainer}>
-          <img src={photo.src} alt={photo.title} style={styles.photo} />
-          <p style={styles.caption}>{photo.title}</p>
-        </div>
-      ))}
+    <div className="gallery-section">
+      <h2 className="gallery-title">Our Creative Gallery</h2>
+      <div className="gallery-grid">
+        {galleryImages.map(img => (
+          <div className="gallery-card" key={img.id} onClick={() => handleImageClick(img.id)} tabIndex={0}
+            role="button"
+            aria-label={img.title}
+          >
+            <img src={img.src} alt={img.title} className="gallery-image" />
+            <div className="gallery-overlay">
+              <span className="gallery-img-title">{img.title}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
-
-const styles = {
-  gallery: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '15px',
-    padding: '20px',
-  },
-  photoContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  photo: {
-    width: '100%',
-    height: 'auto',
-    borderRadius: '8px',
-  },
-  caption: {
-    textAlign: 'center',
-    marginTop: '8px',
-  },
-};
 
 export default Gallery;

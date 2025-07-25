@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/headerstyle.css'; // your styles
-
-import facebookImage from '../assets/images/facebook.png';
-import instaImage from '../assets/images/instagram.png';
-import pinterestImage from '../assets/images/pinterest.png';
-import twitterImage from '../assets/images/twitter.png';
+// import { Link } from 'react-router-dom';
 
 import bgImage from '../assets/images/bg1.jpg';
 import bgImage1 from '../assets/images/bg2.jpg';
 import bgImage2 from '../assets/images/bg.jpg';
 import bgImage3 from '../assets/images/background.png';
 import serviceimg1 from '../assets/images/Service_img1.jpeg';
+
+import { FaUserTie, FaHeart, FaStar, FaSmile, FaInstagram, FaTwitter} from "react-icons/fa";
+import { PiFacebookLogoBold } from "react-icons/pi";
+import { TbBrandPinterest } from "react-icons/tb";
+
 
 function Header({ speed = 15 }) {
   const images = [bgImage, bgImage1, bgImage2, bgImage3];
@@ -20,20 +21,24 @@ function Header({ speed = 15 }) {
 
   // Create ref for the Service section
   const serviceRef = useRef();
-const aboutRef = useRef();
+  const aboutRef = useRef();
+  const whyUsRef = useRef();
   // Scroll handler
   const handleScrollToService = () => {
     if (serviceRef.current) {
       serviceRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-    // else if (aboutRef.current) {
-    //    aboutRef.current.scrollIntoView({ behavior: 'smooth' });
-    // }
   };
 
-    const handleScrollToAbout = () => {
+  const handleScrollToAbout = () => {
     if (aboutRef.current) {
       aboutRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleScrollToWhyUs = () => {
+    if (whyUsRef.current) {
+      whyUsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -55,6 +60,28 @@ const aboutRef = useRef();
 
     return () => clearInterval(intervalRef.current);
   }, [panels.length, speed]);
+  const services = [
+    {
+      title: "Heena Body Tattoos",
+      img: serviceimg1,
+      description: "Mehndi, also known as henna, is a temporary body art tradition involving the application of a paste made from the henna plant's leaves to the skin"
+    },
+    {
+      title: "Bridal Mehndi",
+      img: serviceimg1,
+      description: "Intricate and beautiful mehndi designs for brides, making your special day even more memorable."
+    },
+    {
+      title: "Party Mehndi",
+      img: serviceimg1,
+      description: "Quick and stylish mehndi designs perfect for parties and festive occasions."
+    },
+    {
+      title: "Kids Mehndi",
+      img: serviceimg1,
+      description: "Fun and simple mehndi designs specially crafted for kids."
+    }
+  ];
 
   return (
     <>
@@ -62,18 +89,19 @@ const aboutRef = useRef();
       <header className="header">
         <div className="leftSection">
           {/* Social Icons */}
-          <a href="https://facebook.com" className="iconLink" aria-label="Facebook">
-            <img src={facebookImage} alt="Facebook" className="icon" />
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <PiFacebookLogoBold size={25} />
           </a>
-          <a href="https://instagram.com" className="iconLink" aria-label="Instagram">
-            <img src={instaImage} alt="Instagram" className="icon" style={{ width: '40px' }} />
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <FaInstagram size={25} />
           </a>
-          <a href="https://pinterest.com" className="iconLink" aria-label="Pinterest">
-            <img src={pinterestImage} alt="Pinterest" className="icon" style={{ marginRight: '6px' }} />
+          <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer">
+            <TbBrandPinterest size={25} />
           </a>
-          <a href="https://twitter.com" className="iconLink" aria-label="Twitter">
-            <img src={twitterImage} alt="Twitter" className="icon" />
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <FaTwitter size={22} />
           </a>
+
           <span className="mobileNumber">+91 98765 43210</span>
         </div>
         {/* Login/Signup */}
@@ -84,81 +112,99 @@ const aboutRef = useRef();
       </header>
 
       {/* Background Image Slides */}
-      <div style={{ position: 'relative', width: '99vw', height: '600px', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', width: '99vw', height: '850px', overflow: 'hidden' }}>
         {panels.map((panel, i) => (
-          <div  key={panel.key} className="panel" style={{ left: `${lefts[i]}px`, backgroundImage: `url(${panel.img})`, }} />
+          <div key={panel.key} className="panel" style={{ left: `${lefts[i]}px`, backgroundImage: `url(${panel.img})`, }} />
         ))}
         {/* Navigation Tabs */}
         <div className="navContainer">
           <a href="/" className="tab">Home</a>
-          <button type="button" className="tab"  onClick={handleScrollToService} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-            Service
-          </button>
-          <a href="/" className="tab">Home</a>
-          <button type="button" className="tab"  onClick={handleScrollToAbout} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-            About Us
-          </button>
+          <button type="button" className="tab" onClick={handleScrollToService}> Service </button>
+          <button type="button" className="tab" onClick={handleScrollToAbout}> About Us </button>
           <a href="/contact" className="tab">Contact Us</a>
-          <a href="/extra" className="tab">Extra</a>
+          <button type="button" className="tab" onClick={handleScrollToWhyUs}> Why Us </button>
+          <a href="/gallery" className="tab" target="_self">Gallery</a>
+        </div>
+        
+      </div>
+
+      {/* SERVICE SECTION */}
+      <div ref={serviceRef} className="serviceSection">
+        {/* Service Title */}
+        <h2>Services</h2>
+        <br />
+        <div className="imagesContainer">
+          {services.map((service, idx) => (
+            <div className="imageCard" key={idx}>
+              <img src={service.img} alt={service.title} className="serviceImage" />
+              <p className="description">{service.title}</p>
+              <br />
+              <p className="description">{service.description}</p>
+            </div>
+          ))}
+        </div>
+        
+      </div>
+
+      {/* ABOUT SECTION */}
+
+      <div ref={aboutRef} className="serviceSection">
+        <h2>About Us</h2>
+        <div className="imageCard">
+          <img src={serviceimg1} alt="Description 4" className="serviceImage" />
+        </div>
+        <div className="aboutSectionParagraph">
+          <p>
+            Welcome to our Photography & Mehndi Studio! We are passionate artists dedicated to capturing your special moments and adorning your celebrations with beautiful henna designs.
+          </p>
+          <p>
+            With years of experience in photography and traditional body art, our team ensures every client receives personalized attention and creative excellence. Whether it’s a wedding, festival, or a personal photoshoot, we strive to make your experience memorable.
+          </p>
+          <p>
+            Thank you for trusting us to be a part of your story!
+          </p>
         </div>
       </div>
 
-      {/* Service Section */}
-    <div ref={serviceRef} className="serviceSection">
-  {/* Service Title */}
-  <h2>Services</h2>
-  
-  {/* Images with descriptions directly below the title */}
-  <div className="imagesContainer">
-    {/* Image 1 */}
-    <div className="imageCard">
-      <img src={serviceimg1} alt="Description 1" className="serviceImage" />
-      <p className="description">Heena Body Tattoos</p>
-      <p className="description">Mehndi, also known as henna, is a temporary body art 
-        tradition involving the application of a paste made from the henna plant's 
-        leaves to the skin</p>
-    </div>
+      {/* WHY US SECTION */}
 
-    {/* Image 2 */}
-    <div className="imageCard">
-       <img src={serviceimg1} alt="Description 2" className="serviceImage" />
-      <p className="description">Description for image 2</p>
-      <p className="description">Mehndi, also known as henna, is a temporary body art 
-        tradition involving the application of a paste made from the henna plant's 
-        leaves to the skin</p>
-    </div>
-    {/* Image 3 */}
-    <div className="imageCard">
-      <img src={serviceimg1} alt="Description 3" className="serviceImage" />
-      <p className="description">Description for image 3</p>
-      <p className="description">Mehndi, also known as henna, is a temporary body art 
-        tradition involving the application of a paste made from the henna plant's 
-        leaves to the skin</p>
-    </div>
-    {/* Image 4 */}
-    <div className="imageCard">
-       <img src={serviceimg1} alt="Description 4" className="serviceImage" />
-      <p className="description">Description for image 4</p>
-      <p className="description">Mehndi, also known as henna, is a temporary body art 
-        tradition involving the application of a paste made from the henna plant's 
-        leaves to the skin</p>
-    </div>
-  </div>
-</div>
-<div ref={aboutRef} className="serviceSection">
-  <h2>About Us</h2>
-  <div style={{ maxWidth: '800px', margin: '0 auto', fontSize: '18px', color: '#333' }}>
-    <p>
-      Welcome to our Photography & Mehndi Studio! We are passionate artists dedicated to capturing your special moments and adorning your celebrations with beautiful henna designs.
-    </p>
-    <p>
-      With years of experience in photography and traditional body art, our team ensures every client receives personalized attention and creative excellence. Whether it’s a wedding, festival, or a personal photoshoot, we strive to make your experience memorable.
-    </p>
-    <p>
-      Thank you for trusting us to be a part of your story!
-    </p>
-  </div>
-</div>
+      <div ref={whyUsRef} className="serviceSection">
+        <h2>Why Us</h2>
+        <div className="whyUsBoxes">
+          {/* Box 1 */}
+          <div className="whyUsBox">
+            <div className="iconCircle" style={{ background: "#b388ff" }}>
+              <FaUserTie size={32} color="#fff" />
+            </div>
+            <div className="whyUsTitle">Experienced Professionals</div>
+            <div className="whyUsDesc">Our team brings years of expertise in photography and mehndi artistry.</div>
+          </div>
+          {/* Box 2 */}
+          <div className="whyUsBox">
+            <div className="iconCircle" style={{ background: "#ff8a65" }}>
+              <FaHeart size={32} color="#fff" />
+            </div>
+            <div className="whyUsTitle">Personalized Service</div>
+            <div className="whyUsDesc">We tailor every experience to your unique needs and preferences.</div>
+          </div>
+          {/* Box 3 */}
+          <div className="whyUsBox">
+            <div className="iconCircle" style={{ background: "#4dd0e1" }}>
+              <FaStar size={32} color="#fff" />
+            </div>
+            <div className="whyUsTitle">Quality & Creativity</div>
+            <div className="whyUsDesc">We deliver creative, high-quality results that stand out.</div>
+          </div>
+          {/* Box 4 */}
+          <div className="whyUsBox">
+            <div className="iconCircle" style={{ background: "#aed581" }}>
+              <FaSmile size={32} color="#fff" />
+            </div>
+            <div className="whyUsTitle">Customer Satisfaction</div>
+            <div className="whyUsDesc">Your happiness is our top priority. We strive to exceed your expectations.</div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

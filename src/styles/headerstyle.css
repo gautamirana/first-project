@@ -2,28 +2,49 @@
 
 .header {
   display: flex;
+  flex-wrap: wrap;
+  /* allow wrapping on small screens */
   justify-content: space-between;
   align-items: center;
-  background-color: #C792A0;
-  padding: 5px;
+  background: transparent;
+  position: absolute;
+  /* background-color: #C792A0; */
+  padding: 1rem;
+  /* use rem instead of px */
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  /* padding: 5px; */
 }
 
 .mobileNumber {
-  margin-left: 18px;
+  margin-left: 1.125rem;
+  /* 18px ≈ 1.125rem (assuming 16px base) */
   font-weight: bold;
   color: #000;
-  font-size: 16px;
-  padding: 3px;
+  font-size: 1rem;
+  /* 16px */
+  padding: 0.2rem;
+  /* font-size: 16px; */
+  /* margin-left: 18px; */
+  /* padding: 3px; */
 }
 
 .leftSection {
   display: flex;
-  gap: 4px;
-  margin-left: 10px;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  /* smaller gap for smaller screens */
+  margin-left: 0.625rem;
+  /* 10px ≈ 0.625rem */
+  /* gap: 4px; */
+  /* margin-left: 10px; */
 }
 
 .rightSection {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -37,47 +58,66 @@
   fill: #fff;
 }
 
+/* Links styling */
 .link {
   color: #000000;
-  padding: 6px;
+  font-weight: bold;
+  padding: 0.375rem;
+  /* 6px */
   cursor: pointer;
-  margin-right: 6px;
+  margin-right: 0.375rem;
+  /* margin-right: 6px; */
+  /* padding: 6px; */
 }
 
+/* Tabs styling */
 .tab {
   color: #000;
   font-weight: bold;
   text-decoration: none;
-  font-size: 18px;
-  padding: 8px 16px;
-  border-radius: 4px;
-  /* background: rgba(255, 255, 255, 0.7); */
+  font-size: 1.125rem;
+  /* 18px */
+  padding: 0.5rem 1rem;
+  /* more padding for easier touch on small screens */
+  border-radius: 0.25rem;
+  /* 4px radius */
   background: 'none';
   border: 'none';
   cursor: pointer;
   transition: background 0.2s;
+  /* font-size: 18px; */
+  /* padding: 8px 16px; */
+  /* border-radius: 4px; */
+  /* background: rgba(255, 255, 255, 0.7); */
 }
 
 .tab:hover {
   background: rgba(255, 255, 255, 0.9);
 }
 
+/* Navigation container - make it sticky on top and responsive */
 .navContainer {
-  position: absolute;
+  position: sticky;
+  /* Sticky to viewport top for better UX on scroll */
   top: 0;
-  left: 0;
   width: 100%;
   z-index: 2;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  /* justify-content: flex-end; Align to right */
-  gap: 24px;
-  padding: 16px 0;
-  /* padding: 16px 32px 16px 0; Add right padding */
+  /* Center items horizontally */
+  gap: 1rem;
+  /* Adjust gap for smaller screens */
+  padding: 3rem 0;
   background: none;
   /* or uncomment if you want background overlay */
+
+  /* position: absolute; */
+  /* left: 0; */
+  /* gap: 24px; */
 }
 
+/* Image panels and background slides */
 .panel {
   position: absolute;
   top: 0;
@@ -89,51 +129,182 @@
   z-index: 1;
 }
 
+/* Responsive service section */
 .serviceSection {
-  height: 600px;
+  min-height: 80vh;
+  /* full viewport height for better responsiveness */
   background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
-  /* Add this line */
   align-items: center;
-  /* Center items horizontally */
   font-family: Arial, sans-serif;
-  font-size: 24px;
-  padding: 20px;
+  font-size: 1.125rem;
+  /* 18px */
+  padding: 2rem;
   text-align: center;
   justify-content: flex-start;
-  /* Optional: aligns content to the top */
+
+  /* height: 650px; */
+  /* font-size: 24px; */
+  /* padding: 20px; */
 }
 
+/* Headings */
 h2 {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
+  /* 20px */
+  font-size: 2rem;
+  /* margin-bottom: 20px; */
 }
 
+/* Images container */
 .imagesContainer {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  /* allow wrapping on smaller screens */
+  justify-content: center;
+  /* center blocks on small screens */
+  gap: 1rem;
+  /* space between cards */
+  /* justify-content: space-between; */
 }
 
+/* Image cards */
 .imageCard {
-  flex: 1 1 calc(25% - 20px);
-  margin: 10px;
+  flex: 1 1 calc(25% - 2rem);
+  /* 4 per row on large screens, shrink on small screens */
+  margin: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* flex: 1 1 calc(25% - 20px); */
+  /* margin: 10px; */
+}
+
+@media (max-width: 1024px) {
+  .imageCard {
+    flex: 1 1 calc(50% - 1rem);
+    /* 2 per row on medium screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .imageCard {
+    flex: 1 1 100%;
+    /* 1 per row on small screens */
+  }
 }
 
 .serviceImage {
+  width: 100%;
+  /* make images responsive within container */
   width: 308px;
-  height: 345px;
+  height: auto;
+  /* auto height for aspect ratio */
   border-radius: 15px;
   object-fit: cover;
+  /* height: 345px; */
 }
 
 .description {
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 0.625rem;
+  /* 10px */
+  font-size: 0.875rem;
+  /* 14px */
   color: #333;
 }
 
+/* About section paragraph */
+.aboutSectionParagraph {
+  max-width: 800px;
+  width: 90%;
+  /* max width with flexible width */
+  margin: 0 auto;
+  font-size: 1.125rem;
+  /* 18px */
+  line-height: 1.6;
+  color: #333;
+  /* font-size: 18px; */
+}
+
+/* List responsiveness */
+.aboutSectionParagraph ul {
+  padding-left: 1.5rem;
+}
+
 /* Additional styles if needed */
+
+
+
+/* Container for the four boxes */
+.whyUsBoxes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.whyUsBox {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.whyUsBox:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.iconCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.whyUsTitle {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.whyUsDesc {
+  font-size: 0.98rem;
+  color: #555;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .whyUsBox {
+    width: 180px;
+    padding: 1.2rem 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .whyUsBoxes {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .whyUsBox {
+    width: 90%;
+    padding: 1.2rem 0.5rem;
+  }
+}
