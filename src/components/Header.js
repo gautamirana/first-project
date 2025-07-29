@@ -124,6 +124,7 @@ function Header({ speed = 15 }) {
           <a href="/contact" className="tab">Contact Us</a>
           <button type="button" className="tab" onClick={handleScrollToWhyUs}> Why Us </button>
           <a href="/gallery" className="tab" target="_self">Gallery</a>
+          <a href="/videos" className="tab" target="_self">Videos</a> {/* <-- Add this line */}
         </div>
         
       </div>

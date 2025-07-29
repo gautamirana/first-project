@@ -1,0 +1,26 @@
+.videos-section {
+  padding: 40px 0;
+  background: #f9f9f9;
+  min-height: 100vh;
+}
+.videos-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.videos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+.video-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 16px;
+  text-align: center;
+}
+.video-title {
+  margin-top: 10px;
+  font-weight: bold;
+}

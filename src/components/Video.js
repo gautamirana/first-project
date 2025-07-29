@@ -1,25 +1,38 @@
 import React from 'react';
+import '../styles/Videos.css';
 
-function Video() {
+const videoList = [
+  {
+    id: 1,
+    title: 'Bridal Mehndi Tutorial',
+    src: 'https://www.w3schools.com/html/mov_bbb.mp4', // Replace with your video URLs or local files
+    thumbnail: require('../assets/images/Service_img1.jpeg'),
+  },
+  {
+    id: 2,
+    title: 'Party Mehndi Design',
+    src: 'https://www.w3schools.com/html/movie.mp4',
+    thumbnail: require('../assets/images/Service_img1.jpeg'),
+  },
+];
+
+function Videos() {
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Our Videos</h2>
-      <p>Welcome to our video gallery! Here you can watch our latest work and behind-the-scenes footage.</p>
-      {/* Add your video embeds or video list here */}
-      <div>
-        {/* Example YouTube embed */}
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-          title="Sample Video"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+    <div className="videos-section">
+      <h2 className="videos-title">Our Video Gallery</h2>
+      <div className="videos-grid">
+        {videoList.map(video => (
+          <div className="video-card" key={video.id}>
+            <video width="320" height="180" controls poster={video.thumbnail}>
+              <source src={video.src} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="video-title">{video.title}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-export default Video;
+export default Videos;
