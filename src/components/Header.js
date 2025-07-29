@@ -8,7 +8,7 @@ import bgImage2 from '../assets/images/bg.jpg';
 import bgImage3 from '../assets/images/background.png';
 import serviceimg1 from '../assets/images/Service_img1.jpeg';
 
-import { FaUserTie, FaHeart, FaStar, FaSmile, FaInstagram, FaTwitter} from "react-icons/fa";
+import { FaUserTie, FaHeart, FaStar, FaSmile, FaInstagram, FaTwitter, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt, FaClock } from "react-icons/fa";
 import { PiFacebookLogoBold } from "react-icons/pi";
 import { TbBrandPinterest } from "react-icons/tb";
 
@@ -23,6 +23,7 @@ function Header({ speed = 15 }) {
   const serviceRef = useRef();
   const aboutRef = useRef();
   const whyUsRef = useRef();
+  const contactRef = useRef();
   // Scroll handler
   const handleScrollToService = () => {
     if (serviceRef.current) {
@@ -42,6 +43,11 @@ function Header({ speed = 15 }) {
     }
   };
 
+  const handleScrollToContact = () => {
+    if (contactRef.current) {
+      contactRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -121,12 +127,12 @@ function Header({ speed = 15 }) {
           <a href="/" className="tab">Home</a>
           <button type="button" className="tab" onClick={handleScrollToService}> Service </button>
           <button type="button" className="tab" onClick={handleScrollToAbout}> About Us </button>
-          <a href="/contact" className="tab">Contact Us</a>
+          <button type="button" className="tab" onClick={handleScrollToContact}>Contact Us </button>
           <button type="button" className="tab" onClick={handleScrollToWhyUs}> Why Us </button>
           <a href="/gallery" className="tab" target="_self">Gallery</a>
           <a href="/videos" className="tab" target="_self">Videos</a> {/* <-- Add this line */}
         </div>
-        
+
       </div>
 
       {/* SERVICE SECTION */}
@@ -144,7 +150,7 @@ function Header({ speed = 15 }) {
             </div>
           ))}
         </div>
-        
+
       </div>
 
       {/* ABOUT SECTION */}
@@ -203,6 +209,46 @@ function Header({ speed = 15 }) {
             </div>
             <div className="whyUsTitle">Customer Satisfaction</div>
             <div className="whyUsDesc">Your happiness is our top priority. We strive to exceed your expectations.</div>
+          </div>
+        </div>
+      </div>
+
+
+      {/* CONTACT US SECTION */}
+       <div ref={contactRef} className="contactUsSection">
+        <h2>Contact Us</h2>
+        <div className="contactUsGrid">
+          {/* Office Address */}
+          <div className="contactUsItem">
+            <div className="contactIconCircle" style={{ background: "#b388ff" }}>
+              <FaMapMarkerAlt size={28} color="#fff" />
+            </div>
+            <h3>Our Office Address</h3>
+            <p>123 Main Street,<br />City Name, State, 123456<br />India</p>
+          </div>
+          {/* General Enquiries */}
+          <div className="contactUsItem">
+            <div className="contactIconCircle" style={{ background: "#ff8a65" }}>
+              <FaEnvelope size={28} color="#fff" />
+            </div>
+            <h3>General Enquiries</h3>
+            <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
+          </div>
+          {/* Call Us */}
+          <div className="contactUsItem">
+            <div className="contactIconCircle" style={{ background: "#4dd0e1" }}>
+              <FaPhoneAlt size={28} color="#fff" />
+            </div>
+            <h3>Call Us</h3>
+            <p>+91 98765 43210<br />+91 91234 56789</p>
+          </div>
+          {/* Our Timing */}
+          <div className="contactUsItem">
+            <div className="contactIconCircle" style={{ background: "#aed581" }}>
+              <FaClock size={28} color="#fff" />
+            </div>
+            <h3>Our Timing</h3>
+            <p>Mon - Sat: 10:00 AM - 8:00 PM<br />Sunday: Closed</p>
           </div>
         </div>
       </div>
