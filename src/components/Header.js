@@ -127,8 +127,8 @@ function Header({ speed = 15 }) {
           <a href="/" className="tab">Home</a>
           <button type="button" className="tab" onClick={handleScrollToService}> Service </button>
           <button type="button" className="tab" onClick={handleScrollToAbout}> About Us </button>
-          <button type="button" className="tab" onClick={handleScrollToContact}>Contact Us </button>
           <button type="button" className="tab" onClick={handleScrollToWhyUs}> Why Us </button>
+          <button type="button" className="tab" onClick={handleScrollToContact}>Contact Us </button>
           <a href="/gallery" className="tab" target="_self">Gallery</a>
           <a href="/videos" className="tab" target="_self">Videos</a> {/* <-- Add this line */}
         </div>
@@ -136,15 +136,15 @@ function Header({ speed = 15 }) {
       </div>
 
       {/* SERVICE SECTION */}
-      <div ref={serviceRef} className="serviceSection">
+      <div ref={serviceRef} className="allSection">
         {/* Service Title */}
-        <h2>Services</h2>
+        <h2 className="beautiful-title">Services</h2>
         <br />
         <div className="imagesContainer">
           {services.map((service, idx) => (
             <div className="imageCard" key={idx}>
               <img src={service.img} alt={service.title} className="serviceImage" />
-              <p className="description">{service.title}</p>
+              <p className="title">{service.title}</p>
               <br />
               <p className="description">{service.description}</p>
             </div>
@@ -155,8 +155,8 @@ function Header({ speed = 15 }) {
 
       {/* ABOUT SECTION */}
 
-      <div ref={aboutRef} className="serviceSection">
-        <h2>About Us</h2>
+      <div ref={aboutRef} className="allSection">
+        <h2 className="beautiful-title">About Us</h2>
         <div className="imageCard">
           <img src={serviceimg1} alt="Description 4" className="serviceImage" />
         </div>
@@ -175,8 +175,8 @@ function Header({ speed = 15 }) {
 
       {/* WHY US SECTION */}
 
-      <div ref={whyUsRef} className="serviceSection">
-        <h2>Why Us</h2>
+      <div ref={whyUsRef} className="allSection">
+        <h2 className="beautiful-title">Why Us</h2>
         <div className="whyUsBoxes">
           {/* Box 1 */}
           <div className="whyUsBox">
@@ -216,7 +216,7 @@ function Header({ speed = 15 }) {
 
       {/* CONTACT US SECTION */}
        <div ref={contactRef} className="contactUsSection">
-        <h2>Contact Us</h2>
+        <h2 className="beautiful-title">Contact Us</h2>
         <div className="contactUsGrid">
           {/* Office Address */}
           <div className="contactUsItem">
