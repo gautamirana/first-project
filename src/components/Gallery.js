@@ -1,7 +1,7 @@
 import React , { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Gallery.css';
-import '../styles/headerstyle.css';
+// import '../styles/headerstyle.css';
 
 const galleryImages = [
   { id: 1, src: require('../assets/images/Service_img1.jpeg'), title: 'Bridal Mehndi' },
@@ -28,6 +28,7 @@ function Gallery() {
 
   return (
     <div className="gallery-section">
+      {/* <h2 className="gallery-title">Our Creative Gallery</h2> */}
       <h2 className="gallery-title beautiful-title">Our Creative Gallery</h2>
       <div className="gallery-grid">
         {galleryImages.map(img => (

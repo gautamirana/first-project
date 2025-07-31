@@ -1,3 +1,6 @@
+// import React from 'react';
+// import { useParams } from 'react-router-dom';
+// import '../styles/GalleryDetail.css';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/GalleryDetail.css';
@@ -26,11 +29,13 @@ const galleryDetails = {
       require('../assets/images/Service_img1.jpeg'),
       require('../assets/images/Service_img1.jpeg'),
       require('../assets/images/Service_img1.jpeg'),
+      require('../assets/images/Service_img1.jpeg'),
     ],
   },
   2: {
     title: 'Party Mehndi',
     images: [
+      require('../assets/images/Service_img1.jpeg'),
       require('../assets/images/Service_img1.jpeg'),
     ],
   },
@@ -84,7 +89,7 @@ function GalleryDetail() {
         {detail.images.map((img, idx) => (
           <Box
             key={idx}
-            className="imageCard"
+            className="imageCardGallery"
             cursor="pointer"
             onClick={() => handleImageClick(img)}
             overflow="hidden"

@@ -1,8 +1,8 @@
 /* src/styles/headerstyle.css */
 /* for heading style  */
-@import '../styles/FontFamily.css';
+@import "../styles/FontFamily.css";
 .beautiful-title {
-  font-family: 'Dancing Script', 'Pacifico', cursive, sans-serif;
+  font-family: "Dancing Script", "Pacifico", cursive, sans-serif;
   font-size: 2.8rem;
   color: #000000;
   text-align: center;
@@ -12,16 +12,15 @@
 }
 /* for heading style  */
 
-
 /* for header part  */
 .header {
   display: flex;
-  flex-wrap: wrap;/* allow wrapping on small screens */
+  flex-wrap: wrap; /* allow wrapping on small screens */
   justify-content: space-between;
   align-items: center;
   background: transparent;
   position: absolute;
-  padding: 1rem;/* use rem instead of px */
+  padding: 1rem; /* use rem instead of px */
   width: 100vw;
   top: 0;
   left: 0;
@@ -39,7 +38,7 @@
   flex-wrap: wrap;
   gap: 0.25rem; /* smaller gap for smaller screens */
   margin-left: 0.625rem; /* 10px ≈ 0.625rem */
-  }
+}
 .rightSection {
   display: flex;
   flex-wrap: wrap;
@@ -48,12 +47,11 @@
 .link {
   color: #000000;
   font-weight: bold;
-  padding: 0.375rem;/* 6px */
+  padding: 0.375rem; /* 6px */
   cursor: pointer;
   margin-right: 0.375rem;
-  }
+}
 /* for header part  */
-
 
 /* .iconLink {
   display: inline-block;
@@ -64,7 +62,6 @@
   fill: #fff;
 } */
 
-
 /* Tabs styling */
 .tab {
   color: #000;
@@ -73,17 +70,18 @@
   font-size: 1.125rem; /* 18px */
   padding: 0.5rem 1rem; /* more padding for easier touch on small screens */
   border-radius: 0.25rem;
-  background: 'none';
-  border: 'none';
+  background: "none";
+  border: "none";
   cursor: pointer;
   transition: background 0.2s;
 }
 .tab:hover {
   background: rgba(255, 255, 255, 0.9);
 }
+
 /* Navigation container - make it sticky on top and responsive */
 .navContainer {
-  position: sticky; /* Sticky to viewport top for better UX on scroll */
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 2;
@@ -107,12 +105,11 @@
   transition: left 0.01s linear;
   z-index: 1;
 }
+
 /* Tabs styling */
-
-
-/* for all section -- Responsive*/
-.allSection {
-  min-height: 80vh; /* full viewport height for better responsiveness */
+/* for all section -- Responsive */
+.serviceSection {
+  min-height: 20vh; /* full viewport height for better responsiveness */
   background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
@@ -126,9 +123,11 @@
 /* for service section Images container */
 .imagesContainer {
   display: flex;
-  flex-wrap: wrap; 
-  justify-content: center;  /* center blocks on small screens */
+  flex-wrap: wrap;
+  justify-content: center; /* center blocks on small screens */
   gap: 1rem;
+  max-width: 1280px; /* Add this for better centering and control */
+  margin: 0 auto;
 }
 /* Headings */
 h2 {
@@ -138,56 +137,56 @@ h2 {
 .title {
   margin-top: 0.625rem;
   font-size: 1.675rem;
-  font-family: 'Dancing Script', 'Pacifico', cursive, sans-serif;
+  font-family: "Dancing Script", "Pacifico", cursive, sans-serif;
   color: #000000;
   font-weight: 700;
   letter-spacing: 1px;
 }
 .description {
   margin-top: 0.625rem; /* 10px */
-  font-size: 1rem; /* 14px */
+  font-size: 0.875rem; /* 14px */
   color: #000000;
 }
 /* for all section -- Responsive*/
 
-
 /* For Image cards in service and about us section */
 .imageCard {
-  flex: 1 1 calc(25% - 2rem);
-  /* 4 per row on large screens, shrink on small screens */
+  flex: 1 1 calc(25% - 2rem); /* 4 per row on large screens, shrink on small screens */
   margin: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* flex: 1 1 calc(25% - 20px); */
-  /* margin: 10px; */
+  /* max-width: 300px; */
+  /* Prevents cards from getting too wide */
+  /* min-width: 220px; */
 }
 @media (max-width: 1024px) {
   .imageCard {
-    flex: 1 1 calc(50% - 1rem); /* 2 per row on medium screens */
+    flex: 1 1 calc(50% - 1rem);
+    /* 2 per row on medium screens */
   }
 }
 @media (max-width: 600px) {
   .imageCard {
-    flex: 1 1 100%; /* 1 per row on small screens */
+    flex: 1 1 100%;
+    /* 1 per row on small screens */
   }
 }
 .serviceImage {
   width: 100%; /* make images responsive within container */
   width: 308px;
-  height: auto;  /* auto height for aspect ratio */
+  height: auto; /* auto height for aspect ratio */
   border-radius: 15px;
   object-fit: cover;
 }
 /* For Image cards in service and about us section */
 
-
 /* About section paragraph */
 .aboutSectionParagraph {
   max-width: 800px;
-  width: 90%;/* max width with flexible width */
+  width: 90%; /* max width with flexible width */
   margin: 0 auto;
-  font-size: 1.125rem;/* 18px */
+  font-size: 1.125rem; /* 18px */
   line-height: 1.6;
   color: #333;
 }
@@ -196,7 +195,6 @@ h2 {
   padding-left: 1.5rem;
 }
 /* About section paragraph */
-
 
 /* Why us section */
 .whyUsBoxes {
@@ -209,7 +207,7 @@ h2 {
 .whyUsBox {
   background: #fff;
   border-radius: 20px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
   padding: 2rem 1.5rem 1.5rem 1.5rem;
   width: 240px;
   display: flex;
@@ -257,7 +255,6 @@ h2 {
     align-items: center;
     gap: 1.2rem;
   }
-
   .whyUsBox {
     width: 90%;
     padding: 1.2rem 0.5rem;
@@ -265,11 +262,10 @@ h2 {
 }
 /* Why us section */
 
-
 /* Contact Us Section */
 .contactUsSection {
   padding: 40px 0;
-   background-color: #f0f0f0;
+  background-color: #f0f0f0;
   text-align: center;
 }
 .contactUsGrid {
@@ -281,8 +277,8 @@ h2 {
 }
 .contactUsItem {
   background: transparent; /* Remove box background */
-  border-radius: 0;        /* Remove border radius */
-  box-shadow: none;        /* Remove box shadow */
+  border-radius: 0; /* Remove border radius */
+  box-shadow: none; /* Remove box shadow */
   padding: 25px 30px;
   min-width: 220px;
   max-width: 260px;
@@ -302,18 +298,129 @@ h2 {
   align-items: center;
   justify-content: center;
   margin: 0 auto 12px auto;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .contactUsItem:hover .contactIconCircle {
   transform: scale(1.08);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .contactUsItem:hover {
-  background: rgba(255,255,255,0.15); /* Subtle white overlay on hover */
-  box-shadow: 0 4px 24px rgba(108,99,255,0.10); /* Soft shadow on hover */
+  background: rgba(255, 255, 255, 0.15); /* Subtle white overlay on hover */
+  box-shadow: 0 4px 24px rgba(108, 99, 255, 0.1); /* Soft shadow on hover */
   border-radius: 16px;
   transform: translateY(-6px) scale(1.03);
   z-index: 1;
+}
+
+/* Contact and Inquiry Styles */
+
+.inquiry-form-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.inquiry-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Style for the row of first three inputs */
+.row-inputs {
+  display: flex;
+  gap: 20px; /* space between input groups */
+  width: 100%; /* full width of form container */
+  justify-content: center;
+  flex-wrap: wrap; /* allow wrapping on smaller screens */
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* equally distribute space */
+  min-width: 150px; /* minimum width for input groups */
+}
+.full-width {
+  width: 100%; /* ensures message spans full width */
+  margin-top: 20px; /* spacing above message textarea */
+}
+/* Style textarea to take full width */
+#message {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none;
+  height: 60px;
+}
+
+/* Style inputs for consistency */
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form-group textarea {
+  height: 100px; /* or any desired height */
+}
+
+.inquiry-form label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.inquiry-form input,
+.inquiry-form textarea {
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: 350px;
+}
+
+.inquiry-form textarea {
+  resize: none;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(199, 146, 160);
+  color: white;
+  cursor: pointer;
+  align-self: center;
+  font-size: 16px;
+}
+
+.submit-button:hover {
+  background-color: rgb(146, 49, 75);
+}
+
+/* Responsive adjustments using media queries */
+@media (max-width: 768px) {
+  /* For tablets and smaller devices */
+  .row-inputs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-group {
+    width: 80%; /* Make input groups wider for small screens */
+    min-width: unset; /* Remove min-width constraint */
+  }
+
+  /* Optional: Reduce font sizes for smaller screens for better fit */
+  .submit-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }
 /* Contact Us Section */
