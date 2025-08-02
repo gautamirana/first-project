@@ -1,10 +1,15 @@
-import React from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Gallery from './components/Gallery';
-import GalleryDetail from './components/GalleryDetail';
-import Videos from './components/Video';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Gallery from "./components/Gallery";
+import GalleryDetail from "./components/GalleryDetail";
+import Videos from "./components/Video";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
 function MainLayout({ children }) {
   return (
@@ -19,7 +24,10 @@ function MainLayout({ children }) {
 function AppRoutes() {
   const location = useLocation();
   // Only show Gallery (and GalleryDetail) without header/footer
-  if (location.pathname.startsWith('/gallery')|| location.pathname.startsWith('/videos')) {
+  if (
+    location.pathname.startsWith("/gallery") ||
+    location.pathname.startsWith("/videos")
+  ) {
     return (
       <Routes>
         <Route path="/gallery" element={<Gallery />} />

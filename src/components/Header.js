@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/headerstyle.css"; // your styles
 // import { Link } from 'react-router-dom';
+import axios from "axios";
 
 import bgImage from "../assets/images/bg1.jpg";
 import bgImage1 from "../assets/images/bg2.jpg";
@@ -24,6 +25,33 @@ import { PiFacebookLogoBold } from "react-icons/pi";
 import { TbBrandPinterest } from "react-icons/tb";
 
 function Header({ speed = 15 }) {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    mobile: "",
+    message: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/inquiry/submit",
+        formData
+      );
+      alert(response.data.message);
+      setFormData({ fullName: "", email: "", mobile: "", message: "" });
+    } catch (error) {
+      alert("Submission failed!");
+      console.error(error);
+    }
+  };
+
   const images = [bgImage, bgImage1, bgImage2, bgImage3];
   const [panels, setPanels] = useState(
     images.map((img, i) => ({ img, key: i }))
@@ -366,7 +394,7 @@ function Header({ speed = 15 }) {
 
         {/* Inquiry Form */}
         <div className="inquiry-form-container">
-          <form className="inquiry-form">
+          <form className="inquiry-form" onSubmit={handleSubmit}>
             {/* Row of first three inputs */}
             <div className="row-inputs">
               <div className="form-group">
@@ -376,6 +404,8 @@ function Header({ speed = 15 }) {
                   id="fullName"
                   name="fullName"
                   placeholder="Full name"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="form-group">
@@ -385,6 +415,8 @@ function Header({ speed = 15 }) {
                   id="email"
                   name="email"
                   placeholder="Email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="form-group">
@@ -394,6 +426,8 @@ function Header({ speed = 15 }) {
                   id="mobile"
                   name="mobile"
                   placeholder="Mobile Number"
+                  value={formData.mobile}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -406,6 +440,8 @@ function Header({ speed = 15 }) {
                 name="message"
                 rows="4"
                 placeholder="Message"
+                value={formData.message}
+                onChange={handleInputChange}
               ></textarea>
             </div>
 
