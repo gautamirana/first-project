@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Gallery from "./components/Gallery";
 import GalleryDetail from "./components/GalleryDetail";
 import Videos from "./components/Video";
+import InquiryTable from "./components/InquiryTable"; // import your new component
 import {
   BrowserRouter as Router,
   Routes,
@@ -33,6 +34,14 @@ function AppRoutes() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/gallery/:id" element={<GalleryDetail />} />
         <Route path="/videos" element={<Videos />} /> {/* <-- Add this line */}
+      </Routes>
+    );
+  }
+  // Check if current location is /inquiry, render it separately
+  if (location.pathname === "/inquiry") {
+    return (
+      <Routes>
+        <Route path="/inquiry" element={<InquiryTable />} />
       </Routes>
     );
   }

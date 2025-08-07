@@ -25,6 +25,7 @@ import { PiFacebookLogoBold } from "react-icons/pi";
 import { TbBrandPinterest } from "react-icons/tb";
 
 function Header({ speed = 15 }) {
+  // for data save in inquiry form
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -51,6 +52,7 @@ function Header({ speed = 15 }) {
       console.error(error);
     }
   };
+  // for data save in inquiry form
 
   const images = [bgImage, bgImage1, bgImage2, bgImage3];
   const [panels, setPanels] = useState(
@@ -227,6 +229,9 @@ function Header({ speed = 15 }) {
           <a href="/videos" className="tab" target="_self">
             Videos
           </a>{" "}
+          <a href="/inquiry" className="tab" target="_self">
+            Inquiry Form
+          </a>
           {/* <-- Add this line */}
         </div>
       </div>
