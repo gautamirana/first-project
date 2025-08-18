@@ -333,7 +333,7 @@ function Header({ speed = 15 }) {
 
       {/* CONTACT US SECTION */}
       <div ref={contactRef} className="contactUsSection">
-        <h2 className="beautiful-title">Contact Usss</h2>
+        <h2 className="beautiful-title">Contact Us</h2>
         <div className="contactUsGrid">
           {/* Office Address */}
           <div className="contactUsItem">
