@@ -7,7 +7,13 @@ const inquiryRoutes = require("./routes/inquiryRoutes");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // or specify your frontend origin, e.g. 'http://localhost:3000'
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Origin"],
+  })
+);
 app.use(express.json());
 
 // MongoDB Connection

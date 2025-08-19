@@ -51,4 +51,57 @@ router.get("/getAll", async (req, res) => {
   }
 });
 
+// Delete an inquiry by id
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Optional: validate id format if needed
+    const deleted = await Inquiry.findByIdAndDelete(id);
+    if (!deleted) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Inquiry not found" });
+    }
+    res.json({ success: true, message: "Inquiry deleted", deleted });
+  } catch (err) {
+    console.error("Delete error:", err);
+    res
+      .status(500)
+      .json({ success: false, message: "Server error", error: err.message });
+  }
+});
+
+// Update inquiry status
+router.patch("/updateStatus/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!status || !["Pending", "Completed"].includes(status)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid status" });
+    }
+
+    const updated = await Inquiry.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Inquiry not found" });
+    }
+
+    res.json({ success: true, message: "Status updated", updated });
+  } catch (err) {
+    console.error("Update status error:", err);
+    res
+      .status(500)
+      .json({ success: false, message: "Server error", error: err.message });
+  }
+});
+
 module.exports = router;
