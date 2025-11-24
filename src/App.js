@@ -1,4 +1,5 @@
 import React from "react";
+// import LoginPage from "./components/LoginPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Gallery from "./components/Gallery";
@@ -28,12 +29,14 @@ function AppRoutes() {
   if (
     location.pathname.startsWith("/gallery") ||
     location.pathname.startsWith("/videos")
+    // location.pathname.startsWith("/login")
   ) {
     return (
       <Routes>
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/gallery/:id" element={<GalleryDetail />} />
         <Route path="/videos" element={<Videos />} /> {/* <-- Add this line */}
+        {/* <Route path="/login" element={<LoginPage />} /> */}
       </Routes>
     );
   }

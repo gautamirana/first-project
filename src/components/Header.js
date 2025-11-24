@@ -24,7 +24,48 @@ import {
 import { PiFacebookLogoBold } from "react-icons/pi";
 import { TbBrandPinterest } from "react-icons/tb";
 
+import {
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Button,
+  SimpleGrid,
+  Box,
+  Image,
+  Text,
+  Heading,
+  // UnorderedList,
+  // ListItem,
+} from "@chakra-ui/react";
+
 function Header({ speed = 15 }) {
+  // Chakra modal control for categories
+  const {
+    isOpen: isCatOpen,
+    onOpen: onCatOpen,
+    onClose: onCatClose,
+  } = useDisclosure();
+
+  // Terms & Conditions modal control
+  const {
+    isOpen: isTermsOpen,
+    onOpen: onTermsOpen,
+    onClose: onTermsClose,
+  } = useDisclosure();
+
+  // categories data (replace images if you add new assets)
+  const categories = [
+    { title: "Bridal Mehndi", img: serviceimg1 },
+    { title: "Party Mehndi", img: serviceimg1 },
+    { title: "Kids Mehndi", img: serviceimg1 },
+    { title: "Heena Body Tattoos", img: serviceimg1 },
+  ];
+
   // for data save in inquiry form
   const [formData, setFormData] = useState({
     fullName: "",
@@ -64,10 +105,11 @@ function Header({ speed = 15 }) {
   const intervalRef = useRef();
 
   // Create ref for the Service section
-  const serviceRef = useRef();
-  const aboutRef = useRef();
-  const whyUsRef = useRef();
-  const contactRef = useRef();
+  const serviceRef = useRef(null);
+  const aboutRef = useRef(null);
+  const whyUsRef = useRef(null);
+  const contactRef = useRef(null);
+  const useFullLinkRef = useRef(null);
   // Scroll handler
   const handleScrollToService = () => {
     if (serviceRef.current) {
@@ -92,6 +134,15 @@ function Header({ speed = 15 }) {
       contactRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  // const handleScrollToLinks = () => {
+  //   if (useFullLinkRef.current) {
+  //     useFullLinkRef.current.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "start",
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -135,6 +186,78 @@ function Header({ speed = 15 }) {
       description: "Fun and simple mehndi designs specially crafted for kids.",
     },
   ];
+
+  // 1) Reviews data (you can replace with real data later)
+  const reviews = [
+    {
+      name: "Alicia R.",
+      location: "New York, USA",
+      rating: 5,
+      text: "Absolutely stunning work! The Henna design lasted over a week and drew compliments everywhere I went.",
+      avatarColor: "#f06292",
+    },
+    {
+      name: "Mehul K.",
+      location: "Mumbai, India",
+      rating: 4,
+      text: "Professional and friendly. The artist explained the process clearly and made me feel comfortable.",
+      avatarColor: "#64b5f6",
+    },
+    {
+      name: "Sara L.",
+      location: "Dubai, UAE",
+      rating: 5,
+      text: "Loved the creativity and precision. The gallery of samples helped me choose the perfect design.",
+      avatarColor: "#ffd54f",
+    },
+    {
+      name: "Sara L.",
+      location: "Dubai, UAE",
+      rating: 5,
+      text: "Loved the creativity and precision. The gallery of samples helped me choose the perfect design.",
+      avatarColor: "#ffd54f",
+    },
+  ];
+
+  // 2) Internal state for the reviews carousel
+  const [currentReview, setCurrentReview] = useState(0);
+  const reviewCount = reviews.length;
+  const reviewInterval = useRef(null);
+
+  // 3) Auto-rotate reviews (every 5 seconds)
+  useEffect(() => {
+    reviewInterval.current = setInterval(() => {
+      setCurrentReview((i) => (i + 1) % reviewCount);
+    }, 5000);
+    return () => clearInterval(reviewInterval.current);
+  }, [reviewCount]);
+
+  // 4) Handlers for manual navigation (buttons or swipe)
+  const goToReview = (idx) => {
+    setCurrentReview(((idx % reviewCount) + reviewCount) % reviewCount);
+  };
+
+  const handleDragStart = (e) => {
+    // store start X
+    e.target._dragX = e.touches ? e.touches[0].clientX : e.clientX;
+  };
+
+  const handleDragEnd = (e) => {
+    const startX = e.target._dragX;
+    if (startX == null) return;
+    const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const delta = endX - startX;
+    if (Math.abs(delta) > 40) {
+      if (delta < 0) {
+        // swipe left -> next
+        setCurrentReview((i) => (i + 1) % reviewCount);
+      } else {
+        // swipe right -> previous
+        setCurrentReview((i) => (i - 1 + reviewCount) % reviewCount);
+      }
+    }
+    e.target._dragX = null;
+  };
 
   return (
     <>
@@ -183,7 +306,6 @@ function Header({ speed = 15 }) {
           </a>
         </div>
       </header>
-
       {/* Background Image Slides */}
       <div
         style={{
@@ -216,12 +338,12 @@ function Header({ speed = 15 }) {
             {" "}
             About Us{" "}
           </button>
-          <button type="button" className="tab" onClick={handleScrollToContact}>
-            Contact Us{" "}
-          </button>
           <button type="button" className="tab" onClick={handleScrollToWhyUs}>
             {" "}
             Why Us{" "}
+          </button>
+          <button type="button" className="tab" onClick={handleScrollToContact}>
+            Contact Us{" "}
           </button>
           <a href="/gallery" className="tab" target="_self">
             Gallery
@@ -235,9 +357,8 @@ function Header({ speed = 15 }) {
           {/* <-- Add this line */}
         </div>
       </div>
-
       {/* SERVICE SECTION */}
-      <div ref={serviceRef} className="serviceSection">
+      <div id="service" ref={serviceRef} className="serviceSection">
         {/* Service Title */}
         {/* <h2>Services</h2> */}
         <h2 className="beautiful-title">Services</h2>
@@ -257,10 +378,8 @@ function Header({ speed = 15 }) {
           ))}
         </div>
       </div>
-
       {/* ABOUT SECTION */}
-
-      <div ref={aboutRef} className="serviceSection">
+      <div id="about" ref={aboutRef} className="serviceSection">
         <h2 className="beautiful-title">About Us</h2>
         <div className="imageCard">
           <img src={serviceimg1} alt="Description 4" className="serviceImage" />
@@ -280,9 +399,7 @@ function Header({ speed = 15 }) {
           <p>Thank you for trusting us to be a part of your story!</p>
         </div>
       </div>
-
       {/* WHY US SECTION */}
-
       <div ref={whyUsRef} className="serviceSection">
         <h2 className="beautiful-title">Why Us</h2>
         <div className="whyUsBoxes">
@@ -330,7 +447,84 @@ function Header({ speed = 15 }) {
           </div>
         </div>
       </div>
+      {/* Customer Reviews SECTION */}
+      <div className="reviewsSection">
+        <h2 className="beautiful-title">What Our Customers Say</h2>
 
+        <div
+          className="reviewsCarousel"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Customer reviews"
+          onMouseDown={handleDragStart}
+          onMouseUp={handleDragEnd}
+          onTouchStart={handleDragStart}
+          onTouchEnd={handleDragEnd}
+        >
+          {reviews.map((r, idx) => {
+            // compute relative position
+            const diff = idx - currentReview;
+            // wrap around for silent animation
+            const offset = diff === 0 ? 0 : diff > 0 ? 1 : -1;
+            const transform = `translateX(${offset * 110}%) rotateY(${
+              offset * -8
+            }deg) scale(${idx === currentReview ? 1 : 0.92})`;
+            const zIndex = idx === currentReview ? 3 : 2;
+            return (
+              <div
+                key={idx}
+                className="reviewCard"
+                style={{
+                  transform,
+                  zIndex,
+                }}
+              >
+                <div className="avatar" style={{ background: r.avatarColor }}>
+                  {r.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")
+                    .slice(0, 2)}
+                </div>
+                <div className="reviewContent">
+                  <div className="reviewHeader">
+                    <strong className="reviewName">{r.name}</strong>
+                    <span
+                      className="reviewLocation"
+                      aria-label={`Location ${r.location}`}
+                    >
+                      {r.location}
+                    </span>
+                  </div>
+                  <div className="stars" aria-label={`${r.rating} stars`}>
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <span
+                        key={i}
+                        className={i < r.rating ? "star filled" : "star"}
+                      >
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                  <p className="reviewText">"{r.text}"</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="reviewsNav" aria-label="Review navigation">
+          {reviews.map((_, i) => (
+            <button
+              key={i}
+              className={`dot ${i === currentReview ? "active" : ""}`}
+              onClick={() => goToReview(i)}
+              aria-label={`Go to review ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+      {/* Customer Reviews SECTION */}
       {/* CONTACT US SECTION */}
       <div ref={contactRef} className="contactUsSection">
         <h2 className="beautiful-title">Contact Us</h2>
@@ -476,6 +670,341 @@ function Header({ speed = 15 }) {
           </div>
         </div>
       </div>
+
+      {/* Usefull Links SECTION */}
+      <div ref={useFullLinkRef} className="contactUsSection">
+        <h2 className="beautiful-title">Useful Links</h2>
+        <div className="useful-links-grid four-columns">
+          <div className="links-group">
+            <h4>Policies & More</h4>
+            <ul>
+              <li>
+                <a href="/privacy">Privacy Policy</a>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onCatOpen();
+                  }}
+                >
+                  Categories
+                </a>
+              </li>
+              <li>
+                <a href="/videos">Videos</a>
+              </li>
+
+              <li>
+                <a
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onTermsOpen();
+                  }}
+                >
+                  Terms & Conditions
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="links-group">
+            <h4>Navigate</h4>
+            <ul>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a
+                  href="#service"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    serviceRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }}
+                >
+                  Service
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    aboutRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }}
+                >
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    whyUsRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }}
+                >
+                  Why Us
+                </a>
+              </li>
+              {/* <li>
+                <a
+                  href="#about"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    contactRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }}
+                >
+                  Contact Us
+                </a>
+              </li> */}
+
+              <li>
+                <a href="/gallery">Gallery</a>
+              </li>
+              <li>
+                <a href="/testimonials">Testimonials</a>
+              </li>
+            </ul>
+          </div>
+          <div className="links-group">
+            <h4>Contact</h4>
+            <ul className="contact-list">
+              <li>Address : 123 Main St, Anytown, USA</li>
+              <li>Phone : +91 9054344963</li>
+              <li>
+                <a href="mailto:giftarticle00@gmail.com">
+                  Email : giftarticle00@gmail.com
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="links-group">
+            <h4>Follow Us</h4>
+            <ul className="social-list">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <PiFacebookLogoBold size={25} />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaInstagram size={25} />
+              </a>
+              <a
+                href="https://pinterest.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <TbBrandPinterest size={25} />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTwitter size={22} />
+              </a>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Categories Modal */}
+      <Modal
+        isOpen={isCatOpen}
+        onClose={onCatClose}
+        size="xl"
+        isCentered
+        motionPreset="scale"
+      >
+        <ModalOverlay
+          bg="rgba(129, 134, 158, 0.6)"
+          backdropFilter="blur(6px)"
+        />
+        <ModalContent
+          borderRadius="xl"
+          overflow="hidden"
+          maxW="900px"
+          bgGradient="linear(to-b, rgba(228, 197, 212, 0.95), rgba(184, 115, 151, 0.95))"
+          color="white"
+          boxShadow="0 12px 40px rgba(173, 98, 144, 0.6)"
+          border="1px solid rgba(255,255,255,0.04)"
+        >
+          <ModalHeader
+            textAlign="center"
+            fontSize="3xl"
+            className="beautiful-title"
+          >
+            <Box as="span" display="block" fontWeight="800">
+              Mehndi Categories
+            </Box>
+          </ModalHeader>
+
+          <ModalCloseButton color="whiteAlpha.800" />
+          <ModalBody pb={6}>
+            <SimpleGrid columns={[1, 2, 4]} spacing={6}>
+              {categories.map((c, idx) => (
+                <Box
+                  key={idx}
+                  as="button"
+                  onClick={() => {
+                    /* optional: handle category click */
+                  }}
+                  borderRadius="md"
+                  borderWidth={"2px"}
+                  borderColor="blackAlpha.200"
+                  overflow="hidden"
+                  role="group"
+                  cursor="pointer"
+                  transition="transform 200ms ease, box-shadow 200ms ease"
+                  _hover={{ transform: "translateY(-6px)", boxShadow: "lg" }}
+                  display="flex"
+                  flexDirection="column"
+                  bg="whiteAlpha.50"
+                >
+                  <Image
+                    src={c.img}
+                    alt={c.title}
+                    objectFit="cover"
+                    width="100%"
+                    height="140px"
+                    style={{ display: "block" }}
+                    fallbackSrc={serviceimg1}
+                  />
+
+                  {/* Text container below image */}
+                  <Box px={3} py={3} bg="transparent" color="black">
+                    <Text fontWeight="700" fontSize="md" letterSpacing="tight">
+                      {c.title}
+                    </Text>
+                    <Text fontSize="sm" opacity={0.9} mt={1} color="black">
+                      {c.description ||
+                        "Beautiful mehndi designs for every occasion"}
+                    </Text>
+                  </Box>
+                </Box>
+              ))}
+            </SimpleGrid>
+          </ModalBody>
+
+          <ModalFooter justifyContent="space-between">
+            <Button
+              bgGradient="linear(to-r, teal.400, green.400)"
+              color="white"
+              onClick={onCatClose}
+            >
+              View All Categories
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* Terms & Conditions Modal */}
+      <Modal isOpen={isTermsOpen} onClose={onTermsClose} size="lg" isCentered>
+        <ModalOverlay bg="blackAlpha.600" backdropFilter="blur(3px)" />
+        <ModalContent borderRadius="lg" maxW="800px" overflow="hidden">
+          <ModalHeader textAlign="center">
+            <Heading size="md">Terms & Conditions</Heading>
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box mb={3}>
+              <Text fontWeight="700">1. Acceptance</Text>
+              <Text fontSize="sm" color="gray.600" mt={1}>
+                By using our website or booking services you agree to these
+                terms.
+              </Text>
+            </Box>
+
+            <Box mb={3}>
+              <Text fontWeight="700">2. Services & Bookings</Text>
+              <Text fontSize="sm" color="gray.600" mt={1}>
+                We provide mehndi and photography services. Bookings are
+                confirmed once payment or deposit is received (as specified at
+                booking).
+              </Text>
+            </Box>
+
+            <Box mb={3}>
+              <Text fontWeight="700">3. Payments & Refunds</Text>
+              <Text fontSize="sm" color="gray.600" mt={1}>
+                Payment methods and refund/cancellation rules are shown at time
+                of booking. Refunds, if any, are at our discretion and may be
+                subject to fees.
+              </Text>
+            </Box>
+
+            <Box mb={3}>
+              <Text fontWeight="700">4. Cancellations & Rescheduling</Text>
+              <Text fontSize="sm" color="gray.600" mt={1}>
+                Please notify us as soon as possible to cancel or reschedule.
+                Cancellation fees may apply for short-notice changes.
+              </Text>
+            </Box>
+
+            <Box mb={3}>
+              <Text fontWeight="700">5. Liability</Text>
+              <Text fontSize="sm" color="gray.600" mt={1}>
+                We take care to provide quality services. We are not liable for
+                indirect or consequential losses. Our maximum liability is the
+                amount paid for the service.
+              </Text>
+            </Box>
+
+            <Box mb={3}>
+              <Text fontWeight="700">6. Intellectual Property</Text>
+              <Text fontSize="sm" color="gray.600" mt={1}>
+                Images, designs and content on this site are owned by us or our
+                partners. Do not reproduce without permission.
+              </Text>
+            </Box>
+
+            <Box mb={3}>
+              <Text fontWeight="700">7. Privacy</Text>
+              <Text fontSize="sm" color="gray.600" mt={1}>
+                We collect and use personal data to provide services. See our
+                Privacy Policy for details.
+              </Text>
+            </Box>
+
+            <Box mb={1}>
+              <Text fontWeight="700">8. Governing Law</Text>
+              <Text fontSize="sm" color="gray.600" mt={1}>
+                These terms are governed by the laws of the jurisdiction where
+                the business operates.
+              </Text>
+            </Box>
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="ghost" mr={3} onClick={onTermsClose}>
+              Close
+            </Button>
+            <Button colorScheme="teal" onClick={onTermsClose}>
+              Accept
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      {/* END Terms Modal */}
     </>
   );
 }
